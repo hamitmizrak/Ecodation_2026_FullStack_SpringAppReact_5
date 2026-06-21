@@ -1,0 +1,36 @@
+Singleton Amaç:
+    - Amaç: Bir sınıftan uygulama boyunca sadece ama sadece 1 tane nesne üretilemesini sağlar.
+    - Yani herkes aynı nesneyi kullanır.
+
+Singleton Dezavantaj:
+    - Test yazmayı zorlaştırır.
+
+Singleton Kullanım Yerleri:
+    - Logger
+    - Ayar yönetimi
+    - Cache Manager
+    - Config
+    - Sayaç yöneten bir merkez
+
+
+S1-) Tasarım kalıplarını hangi başlıklarda düşünmeliyiz ?
+C1-) En yaygın sınıflandırma GoF yaklaşımdır.
+    - Creational Design Pattern (Oluşturucu Tasarımlar)
+    - Structural Design Pattern (Yapısal Tasarımlar)
+    - Behavioral Design Pattern (Davranışsal Tasarımlar)
+
+S2-) Creational Design Pattern Başlıkları Nelerdir ?
+c2-) CDP başlıca;
+    - Singleton
+    - Factory Method
+    - Abstract Factory
+    - Builder
+    - Prototype
+
+S3-) Creational Design Pattern  (Oluşturucu Tasarımlar) Görevleri Nelerdir ?
+c3-) CDP başlıca;
+    - Singleton: Tek bir nesne örneği üretmek ve kontrollü erişim sağlamak
+    - Factory Method: Nesne üretimini alt sınıfa veya üretici metoda bırakmak
+    - Abstract Factory : Birbiriyle ilişkili nesne ailelerini birlikte üretmek
+    - Builder : Çok parametreli immutable nesneler, farklı kombinasyonları yapılandırmak
+    - Protype : Yeni nesneyi mevcut bir nesnein kopyasından üretmek

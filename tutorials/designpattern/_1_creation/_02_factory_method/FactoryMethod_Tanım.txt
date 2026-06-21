@@ -1,0 +1,38 @@
+Factory Method Amaç:
+    - Amaç: Nesne oluşturma işini doğruda new ile her yerde yapmak yerine bunu özel bir metot ve ya üretici sınıf üzerinden yönetmek
+
+
+Factory Method  Avantaj:
+    - Kod daha düzenli olur.
+    - if-else kontrolünü tek yerde olmasını sağlamak
+    - Bağımlılık yönetimi azaltmak
+
+Factory Method  Dezavantaj:
+    - Test yazmayı zorlaştırır.
+
+Factory Method  Kullanım Yerleri:
+    - new EmailSender();
+    - new SmsSender();
+    - new PushSender();
+
+S1-) Tasarım kalıplarını hangi başlıklarda düşünmeliyiz ?
+C1-) En yaygın sınıflandırma GoF yaklaşımdır.
+    - Creational Design Pattern (Oluşturucu Tasarımlar)
+    - Structural Design Pattern (Yapısal Tasarımlar)
+    - Behavioral Design Pattern (Davranışsal Tasarımlar)
+
+S2-) Creational Design Pattern Başlıkları Nelerdir ?
+c2-) CDP başlıca;
+    - Singleton
+    - Factory Method
+    - Abstract Factory
+    - Builder
+    - Prototype
+
+S3-) Creational Design Pattern  (Oluşturucu Tasarımlar) Görevleri Nelerdir ?
+c3-) CDP başlıca;
+    - Singleton: Tek bir nesne örneği üretmek ve kontrollü erişim sağlamak
+    - Factory Method: Nesne üretimini alt sınıfa veya üretici metoda bırakmak
+    - Abstract Factory : Birbiriyle ilişkili nesne ailelerini birlikte üretmek
+    - Builder : Çok parametreli immutable nesneler, farklı kombinasyonları yapılandırmak
+    - Protype : Yeni nesneyi mevcut bir nesnein kopyasından üretmek
