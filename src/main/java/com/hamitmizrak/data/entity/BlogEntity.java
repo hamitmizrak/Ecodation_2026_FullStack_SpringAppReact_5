@@ -18,12 +18,13 @@ import lombok.extern.log4j.Log4j2;
 @Entity
 @Table(name="blogs")
 
-// BlogCategory(1) - BlogDto(N)
+// BlogDto(N) - BlogCategory(1)
 public class BlogEntity extends AuditingAwareBaseEntity {
 
     // Field
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "blog_id")
     private Long blogId;
 
     // Header
@@ -41,4 +42,7 @@ public class BlogEntity extends AuditingAwareBaseEntity {
     private String image;
 
     // Relation
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name="blog_Category_Id",nullable = false)
+    private BlogCategoryEntity blogCategoryEntity;
 }

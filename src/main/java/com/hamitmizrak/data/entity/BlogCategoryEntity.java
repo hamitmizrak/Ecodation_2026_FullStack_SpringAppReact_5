@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.log4j.Log4j2;
 
+import java.util.List;
+
 // Lombok
 @Getter
 @Setter
@@ -26,7 +28,8 @@ public class BlogCategoryEntity extends AuditingAwareBaseEntity {
     // ID
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String categoryId;
+    @Column(name = "blog_Category_Id")
+    private String blogCategoryId;
 
     // categoryName
     @Column(unique = true,nullable = false,length = 200)
@@ -34,4 +37,6 @@ public class BlogCategoryEntity extends AuditingAwareBaseEntity {
 
 
     // Relation
+    @OneToMany(mappedBy = "blogCategoryEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<BlogEntity> blogEntityList;
 }
