@@ -5,6 +5,7 @@ import com.hamitmizrak.audit.AuditingAwareBaseDto;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -15,6 +16,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Log4j2
 
 //  BlogDto(N) -BlogCategory(1)
 public class BlogDto  extends AuditingAwareBaseDto implements Serializable {
