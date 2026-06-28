@@ -29,7 +29,7 @@ public class BlogCategoryEntity extends AuditingAwareBaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "blog_Category_Id")
-    private String blogCategoryId;
+    private Long blogCategoryId;
 
     // categoryName
     @Column(unique = true,nullable = false,length = 200)
