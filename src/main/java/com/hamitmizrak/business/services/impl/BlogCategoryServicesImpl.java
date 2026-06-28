@@ -125,7 +125,8 @@ public class BlogCategoryServicesImpl implements IBlogCategoryServices<BlogCateg
     @Override
     @Transactional
     public BlogCategoryDto objectServiceUpdate(Long id, BlogCategoryDto blogCategoryDto) {
-        return null;
+        BlogCategoryEntity findUpdate = dtoToEntity(objectServiceFindById(id));
+        return entityToDto(iBlogCategoryRepository.save(findUpdate));
     }
 
 
@@ -133,7 +134,9 @@ public class BlogCategoryServicesImpl implements IBlogCategoryServices<BlogCateg
     @Override
     @Transactional
     public BlogCategoryDto objectServiceDelete(Long id) {
-        return null;
+        BlogCategoryEntity findDelete = dtoToEntity(objectServiceFindById(id));
+        iBlogCategoryRepository.deleteById(id);
+        return entityToDto(findDelete);
     }
 
 } // end BlogCategoryServicesImpl
