@@ -10,8 +10,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 // Lombok
 @RequiredArgsConstructor //DI
@@ -57,12 +60,28 @@ public class BlogCategoryServicesImpl implements IBlogCategoryServices<BlogCateg
     /////////////////////////////////////////////////////////////////////////////
     /// SPEED, DELETE //////////////////////////////////////////////////////////
     @Override
+    @Transactional
     public List<BlogCategoryDto> speedData(Integer data) {
-        return List.of();
+
+        List<BlogCategoryDto> listData= new ArrayList<>();
+
+        if(data!=null){
+            for (int i = 1; i <=data ; i++) {
+                BlogCategoryEntity blogCategoryEntity =new BlogCategoryEntity();
+                blogCategoryEntity.setCategoryName(UUID.randomUUID().toString());
+                iBlogCategoryRepository.save(blogCategoryEntity);
+                listData.add(BlogCategoryMapper.toDto(blogCategoryEntity));
+            }
+        }else {
+            throw new NullPointerException("Integer null");
+        }
+        return listData;
     }
 
     @Override
+    @Transactional
     public List<BlogCategoryDto> deleteData() {
+        iBlogCategoryRepository.deleteAll();
         return List.of();
     }
 
@@ -70,24 +89,38 @@ public class BlogCategoryServicesImpl implements IBlogCategoryServices<BlogCateg
     /// CRUD ///////////////////////////////////////////////////////////////////
     // CREATE (BLOG CATEGORY)
     @Override
+    @Transactional
     public BlogCategoryDto objectServiceCreate(BlogCategoryDto blogCategoryDto) {
-        return null;
+        if(blogCategoryDto==null || blogCategoryDto.getCategoryName()==null || blogCategoryDto.getCategoryName().isBlank()){
+            throw new NullPointerException("Blog Kategori adı zorunludur");
+        }
+
+        if (iBlogCategoryRepository.existsByCategoryNameIgnoreCase(blogCategoryDto.getCategoryName()))
+         {
+             throw new NullPointerException("Blog Kategori adı bulunmaktadır");
+        }
+
+        BlogCategoryEntity saved =iBlogCategoryRepository.save(dtoToEntity(blogCategoryDto) );
+        return entityToDto(saved);
     }
 
     // LIST (BLOG CATEGORY)
     @Override
+    @Transactional(readOnly = true)
     public List<BlogCategoryDto> objectServiceList() {
-        return List.of();
+        return iBlogCategoryRepository.findAll().stream().map(this::entityToDto).toList();
     }
 
     // FIND BY ID (BLOG CATEGORY)
     @Override
+    @Transactional(readOnly = true)
     public BlogCategoryDto objectServiceFindById(Long id) {
         return null;
     }
 
     // UPDATE (BLOG CATEGORY)
     @Override
+    @Transactional
     public BlogCategoryDto objectServiceUpdate(Long id, BlogCategoryDto blogCategoryDto) {
         return null;
     }
@@ -95,6 +128,7 @@ public class BlogCategoryServicesImpl implements IBlogCategoryServices<BlogCateg
 
     // DELETE BY ID (BLOG CATEGORY)
     @Override
+    @Transactional
     public BlogCategoryDto objectServiceDelete(Long id) {
         return null;
     }
