@@ -1,30 +1,57 @@
 package com.hamitmizrak.business.services.impl;
 
+import com.hamitmizrak.bean.ModelMapperBean;
 import com.hamitmizrak.business.dto.BlogCategoryDto;
 import com.hamitmizrak.business.services.interfaces.IBlogCategoryServices;
 import com.hamitmizrak.data.entity.BlogCategoryEntity;
+import com.hamitmizrak.data.mapper.BlogCategoryMapper;
+import com.hamitmizrak.data.repository.IBlogCategoryRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 // Lombok
+@RequiredArgsConstructor //DI
 @Log4j2
 @Service
 public class BlogCategoryServicesImpl implements IBlogCategoryServices<BlogCategoryDto, BlogCategoryEntity> {
 
-    ///
+    /// CDI
+    // 1.YOL
+    /*
+    @Autowired
+    private IBlogCategoryRepository iBlogCategoryRepository;
+     */
 
+    // 2.YOL
+    /*
+    private final IBlogCategoryRepository iBlogCategoryRepository;
+    @Autowired
+    public BlogCategoryServicesImpl(IBlogCategoryRepository iBlogCategoryRepository) {
+        this.iBlogCategoryRepository = iBlogCategoryRepository;
+    }
+    */
+
+    // 3.YOL
+    private final IBlogCategoryRepository iBlogCategoryRepository;
+    private final ModelMapperBean modelMapperBean;
 
     /// MAPPER /////////////////////////////////////////////////////////////////
     @Override
     public BlogCategoryDto entityToDto(BlogCategoryEntity blogCategoryEntity) {
-        return null;
+        // 1.YOL
+        //return modelMapperBean.modelMapperMethod().map(blogCategoryEntity, BlogCategoryDto.class);
+
+        // 2.YOL
+        return BlogCategoryMapper.toDto(blogCategoryEntity);
     }
 
     @Override
     public BlogCategoryEntity dtoToEntity(BlogCategoryDto blogCategoryDto) {
-        return null;
+        return BlogCategoryMapper.toEntity(blogCategoryDto);
     }
 
     /// SPEED, DELETE //////////////////////////////////////////////////////////
