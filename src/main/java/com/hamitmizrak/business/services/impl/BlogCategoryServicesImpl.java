@@ -6,6 +6,7 @@ import com.hamitmizrak.business.services.interfaces.IBlogCategoryServices;
 import com.hamitmizrak.data.entity.BlogCategoryEntity;
 import com.hamitmizrak.data.mapper.BlogCategoryMapper;
 import com.hamitmizrak.data.repository.IBlogCategoryRepository;
+import com.hamitmizrak.exception._404_NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,7 +116,9 @@ public class BlogCategoryServicesImpl implements IBlogCategoryServices<BlogCateg
     @Override
     @Transactional(readOnly = true)
     public BlogCategoryDto objectServiceFindById(Long id) {
-        return null;
+        BlogCategoryEntity blogCategoryEntity = iBlogCategoryRepository.findById(id)
+                .orElseThrow(()-> new _404_NotFoundException(id+" id'li blog kategori bulunamadı"));
+        return entityToDto(blogCategoryEntity);
     }
 
     // UPDATE (BLOG CATEGORY)
