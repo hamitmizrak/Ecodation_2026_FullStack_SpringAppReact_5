@@ -54,6 +54,7 @@ public class BlogCategoryServicesImpl implements IBlogCategoryServices<BlogCateg
         return BlogCategoryMapper.toEntity(blogCategoryDto);
     }
 
+    /////////////////////////////////////////////////////////////////////////////
     /// SPEED, DELETE //////////////////////////////////////////////////////////
     @Override
     public List<BlogCategoryDto> speedData(Integer data) {
@@ -65,6 +66,7 @@ public class BlogCategoryServicesImpl implements IBlogCategoryServices<BlogCateg
         return List.of();
     }
 
+    /////////////////////////////////////////////////////////////////////////////
     /// CRUD ///////////////////////////////////////////////////////////////////
     // CREATE (BLOG CATEGORY)
     @Override
