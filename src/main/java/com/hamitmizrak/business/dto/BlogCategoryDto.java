@@ -29,7 +29,7 @@ public class BlogCategoryDto extends AuditingAwareBaseDto implements Serializabl
     // Field
 
     // ID
-    private String categoryId;
+    private Long categoryId;
 
     // categoryName
     @NotEmpty(message = "{blog.category.least.validation.constraints.NotNull.message}")
