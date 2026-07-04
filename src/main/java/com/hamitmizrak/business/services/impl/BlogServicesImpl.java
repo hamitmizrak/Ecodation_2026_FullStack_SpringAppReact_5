@@ -222,7 +222,6 @@ public class BlogServicesImpl implements IBlogServices<BlogDto, BlogEntity> {
             if(blogDto.getImage()==null || blogDto.getImage().isBlank()){
                 throw new HamitMizrakException("Blog Resim zorunlu");
             }
-
         }
     } // end validate
 
