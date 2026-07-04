@@ -2,7 +2,7 @@ package com.hamitmizrak.business.services;
 
 import java.util.List;
 
-public interface ISpeedAndDeleteData <D,E> {
+public interface ISpeedAndDeleteService<D,E> {
 
     // SPEED DATA
     public List<D> speedData(Integer data);
