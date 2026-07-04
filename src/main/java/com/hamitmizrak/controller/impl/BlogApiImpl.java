@@ -1,6 +1,5 @@
 package com.hamitmizrak.controller.impl;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hamitmizrak.business.dto.BlogCategoryDto;
 import com.hamitmizrak.business.services.impl.BlogServicesImpl;
@@ -13,7 +12,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.List;
 
 // Lombok
