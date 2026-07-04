@@ -1,5 +1,6 @@
 package com.hamitmizrak.controller;
 
+import com.hamitmizrak.business.dto.BlogDto;
 import com.hamitmizrak.error.ApiResult;
 import org.springframework.http.ResponseEntity;
 
