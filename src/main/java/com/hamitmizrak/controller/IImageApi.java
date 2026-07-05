@@ -8,6 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
 public interface IImageApi<D>{
 
     // Resim ekleme
-    public ResponseEntity<ApiResult<?>> objectServiceCreateWithFile(D d, MultipartFile multipartFile);
-    public ResponseEntity<ApiResult<?>> objectServiceUpdateWithFile(Long id,D d, MultipartFile multipartFile);
+    public ResponseEntity<ApiResult<?>> objectServiceCreateWithFile(String json, MultipartFile multipartFile);
+    public ResponseEntity<ApiResult<?>> objectServiceUpdateWithFile(Long id,String json, MultipartFile multipartFile);
 }
