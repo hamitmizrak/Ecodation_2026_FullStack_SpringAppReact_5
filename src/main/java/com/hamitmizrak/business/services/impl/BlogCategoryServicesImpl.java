@@ -7,6 +7,7 @@ import com.hamitmizrak.data.entity.BlogCategoryEntity;
 import com.hamitmizrak.data.mapper.BlogCategoryMapper;
 
 import com.hamitmizrak.data.repository.IBlogCategoryRepository;
+import com.hamitmizrak.exception.HamitMizrakException;
 import com.hamitmizrak.exception._404_NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -126,6 +127,11 @@ public class BlogCategoryServicesImpl implements IBlogCategoryServices<BlogCateg
     @Transactional
     public BlogCategoryDto objectServiceUpdate(Long id, BlogCategoryDto blogCategoryDto) {
         BlogCategoryEntity findUpdate = dtoToEntity(objectServiceFindById(id));
+
+        if(iBlogCategoryRepository.existsByCategoryNameIgnoreCase(blogCategoryDto.getCategoryName())){
+            throw new HamitMizrakException("KAtegori zaten var: "+blogCategoryDto.getCategoryName());
+        }
+        findUpdate.setCategoryName(blogCategoryDto.getCategoryName());
         return entityToDto(iBlogCategoryRepository.save(findUpdate));
     }
 
