@@ -1,6 +1,7 @@
 package com.hamitmizrak.security;
 
-import com.hamitmizrak.data.embeddable.EmbeddableUserDetails;
+
+import com.hamitmizrak.data.entity.EmbeddableUserDetails;
 import com.hamitmizrak.data.entity.RegisterEntity;
 import com.hamitmizrak.data.entity.RoleEntity;
 import lombok.Getter;

@@ -1,8 +1,8 @@
 package com.hamitmizrak.runner;
 
+import com.hamitmizrak.business.dto.ERole;
 import com.hamitmizrak.business.dto.RegisterDto;
 import com.hamitmizrak.business.dto.RoleDto;
-import com.hamitmizrak.business.role.ERole;
 import com.hamitmizrak.business.services.interfaces.IRegisterServices;
 import com.hamitmizrak.business.services.interfaces.IRoleService;
 import com.hamitmizrak.data.entity.RoleEntity;

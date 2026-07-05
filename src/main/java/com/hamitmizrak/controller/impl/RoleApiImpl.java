@@ -2,7 +2,8 @@ package com.hamitmizrak.controller.impl;
 
 import com.hamitmizrak.business.dto.RoleDto;
 import com.hamitmizrak.business.services.interfaces.IRoleService;
-import com.hamitmizrak.controller.api.interfaces.IRoleApi;
+
+import com.hamitmizrak.controller.interfaces.IRoleApi;
 import com.hamitmizrak.error.ApiResult;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -95,4 +96,6 @@ public class RoleApiImpl implements IRoleApi<RoleDto> {
             return ResponseEntity.ok(ApiResult.error("serverError", ex.getMessage(), "/role/api/v1.0.0/delete"));
         }
     }
+
+
 }

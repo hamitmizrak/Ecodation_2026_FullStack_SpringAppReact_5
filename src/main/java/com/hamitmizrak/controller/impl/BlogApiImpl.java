@@ -54,7 +54,7 @@ public class BlogApiImpl  implements IBlogApi<BlogDto> {
     // http://localhost:4444/blog/category/api/v1.0.0/create
     @Override
     @PostMapping(value = "/create",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ApiResult<?>> objectServiceCreate(@Valid @RequestBody BlogDto blogDto) {
+    public ResponseEntity<ApiResult<?>> objectApiCreate(@Valid @RequestBody BlogDto blogDto) {
         try {
             return ResponseEntity.ok(ApiResult.success(iblogservices.objectServiceCreate(blogDto)));
         } catch (Exception ex) {
@@ -80,7 +80,7 @@ public class BlogApiImpl  implements IBlogApi<BlogDto> {
     // LIST
     @Override
     @GetMapping("/list")
-    public ResponseEntity<ApiResult<List<BlogDto>>> objectServiceList() {
+    public ResponseEntity<ApiResult<List<BlogDto>>> objectApiList() {
         try {
             List<BlogDto> list = iblogservices.objectServiceList();
             return ResponseEntity.ok(ApiResult.success(list));
@@ -92,7 +92,7 @@ public class BlogApiImpl  implements IBlogApi<BlogDto> {
     // FIND
     @Override
     @GetMapping("/find/{id}")
-    public ResponseEntity<ApiResult<?>> objectServiceFindById(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<ApiResult<?>> objectApiFindById(@PathVariable(name = "id") Long id) {
         try {
             return ResponseEntity.ok(ApiResult.success(iblogservices.objectServiceFindById(id)));
         } catch (Exception ex) {
@@ -103,7 +103,7 @@ public class BlogApiImpl  implements IBlogApi<BlogDto> {
     // UPDATE (RESİMSİZ) JSON
     @Override
     @PutMapping(value="/update/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ApiResult<?>> objectServiceUpdate(
+    public ResponseEntity<ApiResult<?>> objectApiUpdate(
             @PathVariable(name = "id") Long id,
             @Valid @RequestBody BlogDto blogDto) {
         try {
@@ -132,7 +132,7 @@ public class BlogApiImpl  implements IBlogApi<BlogDto> {
     // DELETE
     @Override
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ApiResult<?>> objectServiceDelete(@PathVariable("id") Long id) {
+    public ResponseEntity<ApiResult<?>> objectApiDelete(@PathVariable("id") Long id) {
         try {
             BlogDto deleteBlogDto = (BlogDto) iBlogServices.objectServiceDelete(id);
             return ResponseEntity.ok(ApiResult.success(deleteBlogDto));

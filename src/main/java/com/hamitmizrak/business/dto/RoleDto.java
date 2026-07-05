@@ -2,7 +2,6 @@ package com.hamitmizrak.business.dto;
 
 import com.hamitmizrak.annotation.AnnotationUniqueRoleName;
 import com.hamitmizrak.audit.AuditingAwareBaseDto;
-import com.hamitmizrak.business.role.ERole;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

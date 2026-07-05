@@ -2,7 +2,7 @@ package com.hamitmizrak.controller.interfaces;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hamitmizrak.business.dto.RegisterDto;
-import com.hamitmizrak.controller.api.ICrudApi;
+import com.hamitmizrak.controller.ICrudApi;
 import com.hamitmizrak.error.ApiResult;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;

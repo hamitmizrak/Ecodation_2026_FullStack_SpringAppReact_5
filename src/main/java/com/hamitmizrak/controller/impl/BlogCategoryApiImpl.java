@@ -49,7 +49,7 @@ public class BlogCategoryApiImpl implements IBlogCategoryApi<BlogCategoryDto> {
     // http://localhost:4444/blog/category/api/v1.0.0/create
     @Override
     @PostMapping("/create")
-    public ResponseEntity<ApiResult<?>> objectServiceCreate(@Valid @RequestBody BlogCategoryDto blogCategoryDto) {
+    public ResponseEntity<ApiResult<?>> objectApiCreate(@Valid @RequestBody BlogCategoryDto blogCategoryDto) {
         try {
             return ResponseEntity.ok(ApiResult.success(iBlogCategoryServices.objectServiceCreate(blogCategoryDto)));
         } catch (Exception ex) {
@@ -61,7 +61,7 @@ public class BlogCategoryApiImpl implements IBlogCategoryApi<BlogCategoryDto> {
     // http://localhost:4444/blog/category/api/v1.0.0/list
     @Override
     @GetMapping("/list")
-    public ResponseEntity<ApiResult<List<BlogCategoryDto>>> objectServiceList() {
+    public ResponseEntity<ApiResult<List<BlogCategoryDto>>> objectApiList() {
         try {
             List<BlogCategoryDto> list = iBlogCategoryServices.objectServiceList();
             return ResponseEntity.ok(ApiResult.success(list));
@@ -74,7 +74,7 @@ public class BlogCategoryApiImpl implements IBlogCategoryApi<BlogCategoryDto> {
     // http://localhost:4444/blog/category/api/v1.0.0/find/1
     @Override
     @GetMapping("/find/{id}")
-    public ResponseEntity<ApiResult<?>> objectServiceFindById(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<ApiResult<?>> objectApiFindById(@PathVariable(name = "id") Long id) {
         try {
             return ResponseEntity.ok(ApiResult.success(iBlogCategoryServices.objectServiceFindById(id)));
         } catch (Exception ex) {
@@ -86,7 +86,7 @@ public class BlogCategoryApiImpl implements IBlogCategoryApi<BlogCategoryDto> {
     // http://localhost:4444/blog/category/api/v1.0.0/update/1
     @Override
     @PutMapping("/update/{id}")
-    public ResponseEntity<ApiResult<?>> objectServiceUpdate(@PathVariable(name = "id") Long id, @Valid @RequestBody BlogCategoryDto blogCategoryDto) {
+    public ResponseEntity<ApiResult<?>> objectApiUpdate(@PathVariable(name = "id") Long id, @Valid @RequestBody BlogCategoryDto blogCategoryDto) {
         try {
             return ResponseEntity.ok(ApiResult.success(iBlogCategoryServices.objectServiceUpdate(id,blogCategoryDto)));
         } catch (Exception ex) {
@@ -98,7 +98,7 @@ public class BlogCategoryApiImpl implements IBlogCategoryApi<BlogCategoryDto> {
     // http://localhost:4444/blog/category/api/v1.0.0/delete/1
     @Override
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ApiResult<?>> objectServiceDelete(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<ApiResult<?>> objectApiDelete(@PathVariable(name = "id") Long id) {
         try {
             return ResponseEntity.ok(ApiResult.success(iBlogCategoryServices.objectServiceDelete(id)));
         } catch (Exception ex) {

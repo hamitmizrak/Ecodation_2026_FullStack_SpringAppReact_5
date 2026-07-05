@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hamitmizrak.business.dto.RegisterDto;
 import com.hamitmizrak.business.services.impl.RegisterServicesImpl;
 import com.hamitmizrak.business.services.interfaces.IRegisterServices;
-import com.hamitmizrak.controller.api.interfaces.IRegisterApi;
+import com.hamitmizrak.controller.interfaces.IRegisterApi;
 import com.hamitmizrak.error.ApiResult;
 import com.hamitmizrak.exception._400_BadRequestException;
 import com.hamitmizrak.file_upload.FileProps;
@@ -251,5 +251,6 @@ public class RegisterApiImpl implements IRegisterApi<RegisterDto> {
                 "</html>";
         return ResponseEntity.ok(html);
     }
+
 
 } // end RegisterApiImpl
