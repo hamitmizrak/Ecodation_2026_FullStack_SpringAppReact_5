@@ -102,7 +102,7 @@ public class BlogApiImpl  implements IBlogApi<BlogDto> {
 
     // UPDATE (RESİMSİZ) JSON
     @Override
-    @PutMapping(value="/update/{id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PutMapping(value="/update/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiResult<?>> objectServiceUpdate(
             @PathVariable(name = "id") Long id,
             @Valid @RequestBody BlogDto blogDto) {
