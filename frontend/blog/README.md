@@ -1,70 +1,375 @@
-# Getting Started with Create React App
+# Spring Boot & React JS
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![](https://komarev.com/ghpvc/?username=hamitmizrak)
 
-## Available Scripts
+## _N-Tier Architecture_
 
-In the project directory, you can run:
+[![N|GitHub](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/GitHub_Invertocat_Logo.svg/200px-GitHub_Invertocat_Logo.svg.png)](https://github.com/hamitmizrak/Ecodation_FullStack_SpringReact_5)
 
-### `npm start`
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/hamitmizrak/Ecodation_2026_FullStack_SpringReact_5.git)
+![README PNG](./image/readme.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## BlogGit Clone :
 
-### `npm test`
+Spring Boot And React JS
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- git clone https://github.com/hamitmizrak/Ecodation_2026_FullStack_SpringReact_5.git
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Blog Project:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Spring Boot And React JS
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Backend: Java Core, Spring Framework, Spring Boot
+- Frontend: React JS, JS, +ES5, Html5, Css3, Js, TS
+- 🎁 BLOG
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Technology && Features
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- HTML5
+- CSS3
+- RESPONSIVE DESIGN
+- JS
+- BOOTSTRAP5
+- JQUERY/REACTJS
+- JAVASCRIPT
+- SQL
+- H2DB
+- MYSQL
+- POSTGRESQL
+- JAVA CORE
+- SPRING FRAMEWORK
+- SPRING BOOT
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Backend - Libraries && Programming
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Thymeleaf
+- Lombok
+- Validation
+- Mysql
+- Postgresql
+- Model Mapper
+- Password Encoder
+- Open Api Configuration
+- H2DB
+- MYSQL
+- POSTGRESQL
+- JAVA CORE
+- SPRING FRAMEWORK
+- SPRING BOOT
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Google Chrome React Web for Developer
+1- Google React JS Developer : https://chromewebstore.google.com/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 2- Google React Redux Developer : https://chromewebstore.google.com/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Fira Code
+1- Google Font: https://fonts.google.com/specimen/Fira+Code?subset=greek&preview.text=%C4%9F%C3%BC%C5%9F%C3%A7i&preview.text_type=custom
 
-### Analyzing the Bundle Size
+2- Settings
+Font Family: Fira Code
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+3- Settings JSON
+"editor.fontFamily": "Fira Code",
+"editor.fontLigatures": true,
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Kurulu Olması Gerekenler
 
-### Deployment
+- VS Code
+- Intellij Idea Ultimate
+- Git
+- Nodejs
+- Mysql, Postgresql
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+## REACTJS INSTALL
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+``sh
+npx create-react-app blog
+cd blog
+npm start
+
+// edit
+npm install lucide-react
+
+// icon
+npm install react-icons
+
+toast ekle
+npm i react-hot-toast
+
+pdf excel eklemek
+npm i xlsx jspdf jspdf-autotable
+
+npm i axios react-router-dom zustand jwt-decode
+
+npm install axios --save
+npm install react-router-dom --save
+npm install i18next --save
+npm install react-i18next --save
+
+````
+
+## Npm Komutları
+```sh
+node -v
+npm  -v
+
+# package.json oluşturmak dikkat proje ismi:
+# 1-) küçük harflerle
+# 2-) boşluklar olmamalıdır bunun yerine (-)
+# 3-) üğşçö kullanma
+npm init
+npm init -y
+
+# package.json içindeki kütüphaneleri proje dahil etmek için kullanıyoruz.
+npm install
+npm i
+
+# local npm'e neler yüklemişim
+npm list   => LOCAL
+
+# Global npm'e neler yüklemişim
+npm list -g  => GLOCAL
+
+# Global npm'e neler yüklemişim
+# --depth=0 sadece ana yüklediğim dosyaları göster
+npm list -g --depth=0
+
+# npm Localde nereye yüklenmiş
+npm root
+
+# npm Globalde nereye yüklenmiş.
+# C:\Users\90553\AppData\Roaming\npm\node_modules
+npm root -g
+
+# SEARCH
+# npm üzerinde arama yapmak için kullanıyoruz.
+npm search express
+npm search mocha
+
+# INSTALL
+# --save (Production ortamında kurulması gerekiyor)
+npm install -g bower --save
+npm install  express --save
+npm install  express@4.18.1 --save # Semantic Version: 4.18.1
+
+# -dev (Test ortamında kurulması)
+npm install mocha --save-dev
+npm install tailwindcss -D
+
+# DELETE
+npm unistall express
+
+# UPDATE
+npm update # Bütün bağımlılıkları güncellemek
+npm update express
+````
+
+## Nodemon
+
+```sh
+normalde: node index
+nodemonla birlite: nodemon index otomatikleştiriyoruz.
+npm install
+npm search nodemon
+npm install nodemon --save
+
+-g: global
+-q: terminalde az açıklamalar görünsün
+
+npm install -g nodemon --save
+nodemon index.js
+nodemon -q index.js
+
+"scripts": {
+    "nodemon": "nodemon index.js",
+    "nodemon_q": "nodemon -q index.js",
+}
+
+npm run nodemon
+npm run nodemon_q
+```
+
+---
+
+Support
+As [Hamit Mızrak] writes on the [Markdown site][hm]
+
+> Who am I:
+> Computer Engineering  
+> Senior Full Stack Developer & DEVOPS & MOBIL APP
+
+[Mail Addres ](hamitmizrak@gmail.com)
+[Tel](hamitmizrak@gmail.com)
+
+---
+
+## Road Map
+
+My Project Road Map
+
+- [Install](#Installation)
+- [Plugin](#plugins-data)
+- [VS Code](#vs-code-extensions)
+- [Google Chrome](#google-chrome-plugins)
+- [Port](#port)
+- [Docker](#docker)
+
+And of course Dillinger itself is open source with a [public repository][dill]
+on GitHub.
+
+---
+
+## Installation
+
+Dillinger requires [Node.js](https://nodejs.org/) v10+ to run.
+REACT JS
+
+```sh
+npm -v
+node -v
+npx create-react-app blog
+npm i
+cd blog
+npm start
+```
+
+---
+
+## Plugins Data
+
+Dillinger is currently extended with the following plugins.
+Instructions on how to use them in your own application are linked below.
+
+| Plugin           | README                                    |
+| ---------------- | ----------------------------------------- |
+| Dropbox          | [plugins/dropbox/README.md][PlDb]         |
+| GitHub           | [plugins/github/README.md][PlGh]          |
+| Google Drive     | [plugins/googledrive/README.md][PlGd]     |
+| OneDrive         | [plugins/onedrive/README.md][PlOd]        |
+| Medium           | [plugins/medium/README.md][PlMe]          |
+| Google Analytics | [plugins/googleanalytics/README.md][PlGa] |
+
+---
+
+## VS CODE EXTENSIONS
+
+```sh
+- Browser preview
+- Auto Close tag
+- tabnine
+- Auto import
+- Auto rename tag
+- Bootstrap 5 Quick Snipperts
+- Bracket Pair Colorizer 2
+- Css Snippet
+- Es7+ React/REdux/React-Native snippets
+- Html Snippets
+- JsQuery Snippets
+- Live Server
+- Material Icon Theme
+- Open-in-Browser
+- Path Intellisense
+- Prettier Code formatter
+- Project Manager
+- Reactjs code Snippets
+```
+
+---
+
+## Google Chrome Plugins
+
+for project , plugins
+
+| Google                | CHROME                         |
+| --------------------- | ------------------------------ |
+| React Developer Tools | [React Developer Tools][RTool] |
+| React DevTools        | [React Devtool][RDevtool]      |
+| Google Drive          | [Frontend][FRONTEND]           |
+| OneDrive              | [Backend][BACKEND]             |
+
+---
+
+## PORT
+
+for project , Port
+
+| NAME       | PORT                                                  |
+| ---------- |-------------------------------------------------------|
+| React JS   | [React][http://localhost:3000]                        |
+| SPRING     | [Spring][http://localhost:4444]                       |
+| H2-CONSOLE | [H2][http://localhost:4444/h2-console]                |
+| SWAGGER    | [API DOCUMENT][http://localhost:4444/swagger-ui.html] |
+
+---
+
+## Docker
+
+Project Deployment
+
+```sh
+*STEP-1*
+npx create-react-app frontend
+cd frontend
+npm start
+code .
+
+*STEP-2*
+NOT: node_modules siliyoruz bunu sonrasında
+npm i
+
+*STEP-3*
+terminal: package.json seviyesinde olacak şekilde
+npm install axios
+npm install bootstrap --save
+npm install node-sass --save
+```
+
+port 8080 of the Docker (or whatever port was exposed in the Dockerfile):
+
+```sh
+docker-compose up -d
+docker-compose down
+Dockerfile_Basic build -t .
+
+docker container run -d -p 4444:4444 --name backend blog
+docker run -d -p 8000:8080 --restart=always --cap-add=SYS_ADMIN --name=dillinger <youruser>/dillinger:${package.json.version}
+```
+
+```sh
+127.0.0.1:4444
+```
+
+## License
+
+**BLOG PROJECT !**
+
+[//]: # 'Variable'
+[RTool]: https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi
+[RDevtool]: https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
+[FRONTEND]: https://github.com/denemed
+[BACKEND]: https://github.com/denemed
+[hm]: https://github.com/hamitmizrak
+[markdown-it]: https://github.com/markdown-it/markdown-it
+[Ace Editor]: http://ace.ajax.org
+[node.js]: http://nodejs.org
+[Twitter Bootstrap]: http://twitter.github.com/bootstrap/
+[jQuery]: http://jquery.com
+[@tjholowaychuk]: http://twitter.com/tjholowaychuk
+[express]: http://expressjs.com
+[AngularJS]: http://angularjs.org
