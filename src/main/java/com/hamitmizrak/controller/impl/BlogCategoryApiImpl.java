@@ -29,7 +29,7 @@ public class BlogCategoryApiImpl implements IBlogCategoryApi<BlogCategoryDto> {
 
     /// /////////////////////////////////////
     ///  SPEED DATA
-    // http://localhost:4444/blog/category/api/v1.0.0/speed
+    // http://localhost:5555/blog/category/api/v1.0.0/speed
     @Override
     @GetMapping("speed")
     public ResponseEntity<ApiResult<List<BlogCategoryDto>>> speedData(Integer data) {
@@ -37,7 +37,7 @@ public class BlogCategoryApiImpl implements IBlogCategoryApi<BlogCategoryDto> {
     }
 
     /// DELETE ALL
-    // http://localhost:4444/blog/category/api/v1.0.0/delete-all
+    // http://localhost:5555/blog/category/api/v1.0.0/delete-all
     @Override
     @GetMapping("delete-all")
     public ResponseEntity<ApiResult<List<BlogCategoryDto>>> deleteData() {
@@ -46,7 +46,7 @@ public class BlogCategoryApiImpl implements IBlogCategoryApi<BlogCategoryDto> {
 
     /// /////////////////////////////////////
     /// CREATE
-    // http://localhost:4444/blog/category/api/v1.0.0/create
+    // http://localhost:5555/blog/category/api/v1.0.0/create
     @Override
     @PostMapping("/create")
     public ResponseEntity<ApiResult<?>> objectApiCreate(@Valid @RequestBody BlogCategoryDto blogCategoryDto) {
@@ -58,7 +58,7 @@ public class BlogCategoryApiImpl implements IBlogCategoryApi<BlogCategoryDto> {
     }
 
     // LIST
-    // http://localhost:4444/blog/category/api/v1.0.0/list
+    // http://localhost:5555/blog/category/api/v1.0.0/list
     @Override
     @GetMapping("/list")
     public ResponseEntity<ApiResult<List<BlogCategoryDto>>> objectApiList() {
@@ -71,7 +71,7 @@ public class BlogCategoryApiImpl implements IBlogCategoryApi<BlogCategoryDto> {
     }
 
     // FIND BY ID
-    // http://localhost:4444/blog/category/api/v1.0.0/find/1
+    // http://localhost:5555/blog/category/api/v1.0.0/find/1
     @Override
     @GetMapping("/find/{id}")
     public ResponseEntity<ApiResult<?>> objectApiFindById(@PathVariable(name = "id") Long id) {
@@ -83,7 +83,7 @@ public class BlogCategoryApiImpl implements IBlogCategoryApi<BlogCategoryDto> {
     }
 
     // UPDATE
-    // http://localhost:4444/blog/category/api/v1.0.0/update/1
+    // http://localhost:5555/blog/category/api/v1.0.0/update/1
     @Override
     @PutMapping("/update/{id}")
     public ResponseEntity<ApiResult<?>> objectApiUpdate(@PathVariable(name = "id") Long id, @Valid @RequestBody BlogCategoryDto blogCategoryDto) {
@@ -95,7 +95,7 @@ public class BlogCategoryApiImpl implements IBlogCategoryApi<BlogCategoryDto> {
     }
 
     // DELETE
-    // http://localhost:4444/blog/category/api/v1.0.0/delete/1
+    // http://localhost:5555/blog/category/api/v1.0.0/delete/1
     @Override
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ApiResult<?>> objectApiDelete(@PathVariable(name = "id") Long id) {

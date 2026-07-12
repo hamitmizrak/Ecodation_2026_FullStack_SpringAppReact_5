@@ -34,7 +34,7 @@ public class BlogApiImpl  implements IBlogApi<BlogDto> {
 
     /// /////////////////////////////////////
     /// SPEED DATA
-    // http://localhost:4444/blog/api/v1.0.0/speed
+    // http://localhost:5555/blog/api/v1.0.0/speed
     @Override
     @GetMapping("speed")
     public ResponseEntity<ApiResult<List<BlogDto>>> speedData(Integer data) {
@@ -42,7 +42,7 @@ public class BlogApiImpl  implements IBlogApi<BlogDto> {
     }
 
     /// DELETE ALL
-    // http://localhost:4444/blog/api/v1.0.0/delete-all
+    // http://localhost:5555/blog/api/v1.0.0/delete-all
     @Override
     @GetMapping("delete-all")
     public ResponseEntity<ApiResult<List<BlogDto>>> deleteData() {
@@ -51,7 +51,7 @@ public class BlogApiImpl  implements IBlogApi<BlogDto> {
 
     /// /////////////////////////////////////
     /// CREATE (RESİMSİZ) JSON
-    // http://localhost:4444/blog/category/api/v1.0.0/create
+    // http://localhost:5555/blog/category/api/v1.0.0/create
     @Override
     @PostMapping(value = "/create",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiResult<?>> objectApiCreate(@Valid @RequestBody BlogDto blogDto) {
@@ -63,7 +63,7 @@ public class BlogApiImpl  implements IBlogApi<BlogDto> {
     }
 
     /// CREATE (RESİMLİ) Multipart
-    // http://localhost:4444/blog/category/api/v1.0.0/create
+    // http://localhost:5555/blog/category/api/v1.0.0/create
     @Override
     @PostMapping(value = "/create",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ApiResult<?>> objectServiceCreateWithFile(
