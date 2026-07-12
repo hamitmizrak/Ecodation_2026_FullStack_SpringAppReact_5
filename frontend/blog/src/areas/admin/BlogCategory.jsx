@@ -34,7 +34,6 @@ function GlobalBackdrop({ show, onClose }) {
     />
   );
 
-
 /////////////////////////////////////////////////////////////////////////////////
 // Blog Category
 function BlogCategory() {
@@ -96,7 +95,7 @@ function BlogCategory() {
       const arr = Array.isArray(data) ? data : Array.isArray(data?.content) ? data.content :[];
       setItems(arr);
     }catch(e){
-showError?.('Blog Kategori listesi yüklenemedi') ?? console.error(e);
+  showError?.('Blog Kategori listesi yüklenemedi') ?? console.error(e);
     }finally{
       setLoading(false);
     }
@@ -223,6 +222,6 @@ showError?.('Blog Kategori listesi yüklenemedi') ?? console.error(e);
 // Return
   return <React.Fragment></React.Fragment>;
 }
-
+}
 // Export
-export default BlogCategory;
+export default BlogCategory()()
