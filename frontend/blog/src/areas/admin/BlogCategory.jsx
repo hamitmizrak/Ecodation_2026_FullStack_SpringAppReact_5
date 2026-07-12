@@ -108,7 +108,7 @@ showError?.('Blog Kategori listesi yüklenemedi') ?? console.error(e);
   },[])
 
   ////////////////////////////////////////
-// ---- Form Helpers ----
+// ---- Modal Form Helpers ----
 // close
   const closeAll = () => {
     setShowCreate(false);
