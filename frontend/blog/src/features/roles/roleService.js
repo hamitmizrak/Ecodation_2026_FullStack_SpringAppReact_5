@@ -1,7 +1,8 @@
 // src/api/roleService.js
 
-import { axiosClient } from './axiosClient'; // Ortak axios instance (Authorization header dahil)
-import { ENDPOINTS } from '../config/api'; // API path'leri merkezi tanım
+
+import { axiosClient } from '../../lib/axiosClient'; // Ortak axios instance (Authorization header dahil)
+import { ENDPOINTS } from '../../config/api'; // API path'leri merkezi tanım
 
 /**
  * Roller Listesi API Çağrısı
