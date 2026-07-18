@@ -482,7 +482,6 @@ function GlobalBackdrop({ show, onClose }) {
           {showCreate && (
             <div
               className="modal fade show d-block"
-              tabIndex="-1"
               role="dialog"
               tabIndex={-1}
               aria-hidden="true"
@@ -543,7 +542,6 @@ function GlobalBackdrop({ show, onClose }) {
           {showEdit && (
             <div
               className="modal fade show d-block"
-              tabIndex="-1"
               role="dialog"
               tabIndex={-1}
               aria-hidden="true"
@@ -604,7 +602,6 @@ function GlobalBackdrop({ show, onClose }) {
           {showView && (
             <div
               className="modal fade show d-block"
-              tabIndex="-1"
               role="dialog"
               tabIndex={-1}
               aria-hidden="true"
@@ -649,6 +646,62 @@ function GlobalBackdrop({ show, onClose }) {
           )}
 
           {/* DELETE MODAL */}
+          {showDelete && selected && (
+            <div
+              className="modal fade show d-block"
+              role="dialog"
+              tabIndex={-1}
+              aria-hidden="true"
+              style={{ zIndex: 1050 }}
+              onClick={closeDelete}
+            >
+              <div
+                className="modal-dialog modal-dialog-centered"
+                role="document"
+                onClick={(e) => e.stopPropagation()} // Modal içi tıklamayı engelle
+              >
+                <div className="modal-content">
+                  {/* HEADER */}
+                  <div className="modal-header">
+                    <h5 className="modal-title">Silme Onayı</h5>
+                    <button type="button" className="btn-close" onClick={closeDelete}></button>
+                  </div>
+
+                  {/* BODY */}
+                  <div className="modal-body">
+                    <div className="mb-2">
+                      <b>Kategori Name: {selected.categoryName}</b>
+                      kategorisini silmek istediğinize emin misiniz? Bu işlem geri alınamaz.
+                    </div>
+                    <i className="text-muted">
+                      <b>ID: </b> {selected.categoryId ?? selected.id}
+                    </i>
+                    <div className="mb-2">
+                      <b>Oluşturulma Tarihi:</b> {selected?.createdDate ?? selected?.date}
+                    </div>
+                  </div>
+                  {/* FOOTER */}
+                  <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" onClick={closeDelete}>
+                      Vazgeç
+                    </button>
+                    <button type="button" className="btn btn-danger" onClick={handleDelete}>
+                      Sil
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Global Backdrop */}
+          <GlobalBackdrop show={anyOpen} />
+          {/* <GlobalBackdrop show={anyOpen} onClose={closeAll} /> */}
+        </div>
+        {/* end container */}
+      </React.Fragment>
+    );
+  }
         </div>
         {/* end container */}
       </React.Fragment>
