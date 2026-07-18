@@ -305,10 +305,179 @@ function GlobalBackdrop({ show, onClose }) {
       }
     };
 
+    // ---- Render ----
+    const SortBtn = ({ k, children }) => (
+      <button
+        type="button"
+        className="btn btn-link p-0 ms-1"
+        title="Sırala"
+        onClick={() => {
+          if (sortKey === k) setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'));
+          else {
+            setSortKey(k);
+            setSortDir('asc');
+          }
+        }}
+      >
+        {children} {sortKey === k ? (sortDir === 'asc' ? '▲' : '▼') : ''}
+      </button>
+    );
+
     ////////////////////////////////////////
     // Return
-    return <React.Fragment></React.Fragment>;
-  }
-}
+    return (
+      <React.Fragment>
+        <div className="container py-4">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <h2 className="mb-0">Blog Kategoriler</h2>
+            <div class="d-flex gap-2">
+              <input
+                type="text"
+                className="form-control"
+                style={{ minWidth: 220 }}
+                placeholder="Kategori ara (ID/Ad)..."
+                value={query}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  setPage(1); // Arama yapıldığında sayfayı 1'e sıfırla
+                }}
+              />
+              <button
+                className="btn btn-primary"
+                onClick={() => {
+                  openCreate();
+                }}
+              >
+                Yeni Kategori Ekle
+              </button>
+            </div>{' '}
+            {/* end filter */}
+          </div>
+          <div className="table-responsive">
+            <table className="table table-striped table-bordered align-middle">
+              <thead>
+                <tr>
+                  <th style={{ minWidth: 90 }}>
+                    ID <SortBtn k="categoryId" />
+                  </th>
+                  <th style={{ minWidth: 120 }}>
+                    Kategori Adı <SortBtn k="categoryName" />
+                  </th>
+                  <th style={{ minWidth: 220 }}>
+                    Oluşturulma Tarihi <SortBtn k="systemCreatedDate" />
+                  </th>
+                  <th style={{ minWidth: 160 }}>İşlemler </th>
+                </tr>
+              </thead>
+              <tbody>
+                {loading ? (
+                  <tr>
+                    <td colSpan={4} className="text-center py-1">
+                      <span
+                        className="spinner-border spinner-border-sm me-2  text-primary"
+                        role="status"
+                      />
+                      Yükleniyor...
+                    </td>
+                  </tr>
+                ) : paged.length === 0 ? (
+                  <tr>
+                    <td colSpan={4} className="text-center py-1 text-muted">
+                      <span className="text-muted">Kayıt bulunamadı.</span>
+                    </td>
+                  </tr>
+                ) : (
+                  paged.map((row) => (
+                    <tr key={row.categoryId ?? row.id}>
+                      {/* ID */}
+                      <td>{row.categoryId ?? row.id}</td>
+                      {/* Category Name */}
+                      <td>{row.categoryName}</td>
+                      {/* Date */}
+                      {/* <td>{new Date(row.systemCreatedDate).toLocaleDateString()}</td> */}
+                      <td>{fmtDate(row.systemCreatedDate)}</td>
+
+                      {/* İşlemler */}
+                      <td>
+                        <div className="btn-group btn-group-sm">
+                          <button
+                            className="btn btn-sm btn-outline-primary me-2"
+                            title="Düzenle"
+                            onClick={() => openEdit(row)}
+                          >
+                            {/* Düzenle */}
+                            <i className="fas fa-edit" />
+                          </button>
+
+                          <button
+                            className="btn btn-sm btn-outline-primary me-2"
+                            title="Göster"
+                            onClick={() => openView(row)}
+                          >
+                            {/* Göster */}
+                            <i className="fas fa-eye" />
+                          </button>
+
+                          <button
+                            className="btn btn-sm btn-outline-danger"
+                            title="Sil"
+                            onClick={() => openDelete(row)}
+                          >
+                            <i className="fas fa-trash" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+          {/* Pagination */}
+          <div className="d-flex justify-content-between align-items-center mt-2">
+            <div>
+              Toplam <b>{total}</b> kayıt, Sayfa <b>{currentPage}</b> / <b>{pageCount}</b>
+            </div>
+            <div className="d-flex align-items-center gap-2">
+              <select
+                className="form-select"
+                value={pageSize}
+                onChange={(e) => {
+                  setPageSize(parseInt(e.target.value || '10', 10));
+                  setPage(1);
+                }}
+                style={{ width: 90 }}
+              >
+                {[5, 10, 20, 50, 100].map((n) => (
+                  <option key={n} value={n}>
+                    {n}/sayfa
+                  </option>
+                ))}
+              </select>
+              <div className="btn-group">
+                <button
+                  className="btn btn-outline-secondary"
+                  disabled={currentPage <= 1}
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                >
+                  ‹
+                </button>
+                <button
+                  className="btn btn-outline-secondary"
+                  disabled={currentPage >= pageCount}
+                  onClick={() => setPage((p) => Math.min(pageCount, p + 1))}
+                >
+                  ›
+                </button>
+              </div>
+            </div>
+          </div>{' '}
+          {/* end Pagination */}
+        </div>{' '}
+        {/* end container */}
+      </React.Fragment>
+    );
+  } // end BlogCategory
+} // end GlobalBackdrop
 // Export
 export default BlogCategory()();
