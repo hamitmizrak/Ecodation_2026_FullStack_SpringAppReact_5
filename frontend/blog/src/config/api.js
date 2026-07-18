@@ -10,10 +10,10 @@
 
 // Backend ana adresi (örn: http://localhost:5555)
 // .env dosyanızda VITE_API_BASE veya REACT_APP_API_BASE varsa onu kullanır.
+// Vite ortamı için (örn. VITE_API_BASE)
+// CRA ortamı için (örn. REACT_APP_API_BASE)
 export const API_BASE =
-  import.meta?.env?.VITE_API_BASE || // Vite ortamı için (örn. VITE_API_BASE)
-  process.env.REACT_APP_API_BASE || // CRA ortamı için (örn. REACT_APP_API_BASE)
-  'http://localhost:5555'; // Lokal fallback
+  import.meta?.env?.VITE_API_BASE || process.env.REACT_APP_API_BASE || 'http://localhost:5555'; // Lokal fallback
 
 // Resimlerin geldiği kök URL
 export const IMAGE_BASE =
@@ -57,8 +57,8 @@ export const ENDPOINTS = {
   },
 
   // Blog — Backend sözleşmesi (JSON *veya* multipart) ile uyumlu:
-  //  POST /blog/api/v1.0.0/create
-  //  PUT  /blog/api/v1.0.0/update/{id}
+  // POST /blog/api/v1.0.0/create
+  // PUT  /blog/api/v1.0.0/update/{id}
   // BLOG CATEGORY
   BLOG: {
     LIST: '/blog/api/v1.0.0/list',

@@ -401,8 +401,7 @@ const excerpt = (text = '', max = 1200) => {
           {/* Haberler  End*/}
 
           {/* MAIN */}
-          {/* ================== HAKKIMIZDA ================== */}
-
+  
           {/* ================== HAKKIMIZDA ================== */}
           <section
             id="scroll_spy_about"

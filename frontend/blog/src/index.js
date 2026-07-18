@@ -25,7 +25,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css'; // FontAwesome ikonlar
 import 'animate.css/animate.min.css'; // Animate.css animasyonları
 
 // Export index.css
-import './app/index.css'; // Projenizin kendi global css’i
+import './index.css'; // Projenizin kendi global css’i
 
 // Root element (public/index.html’de id="root" olan div’e render eder)
 // DOM: Document Object Model (HTML sayfasının yapısı)

@@ -421,7 +421,7 @@ i:hover {
 /* Header alanının ana kutusu */
 #header_id {
   position: relative; /* Overlay ve içeriği konumlandırabilmek için relative */
-  background-image: url('../shared/assets/images/header1.jpg'); /* Arka plan resmi */
+  background-image: url('shared/assets/images/header1.jpg'); /* Arka plan resmi */
   background-size: cover; /* Resmi kutunun tamamını kaplayacak şekilde ölçeklendir */
   background-position: center; /* Resmi ortala */
   height: 100vh; /* Görünür alanın %80 yüksekliği */
@@ -715,7 +715,7 @@ i:hover {
 /* ### About HAKKIMIZDA ### */
 #scroll_spy_about {
   position: relative;
-  background-image: url('../shared/assets/images/about.jpg');
+  background-image: url('shared/assets/images/about.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -788,7 +788,7 @@ i:hover {
   bottom: 0;
   left: 0px;
   content: '';
-  background-image: url('../shared/assets/images/blog.jpg');
+  background-image: url('shared/assets/images/blog.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
