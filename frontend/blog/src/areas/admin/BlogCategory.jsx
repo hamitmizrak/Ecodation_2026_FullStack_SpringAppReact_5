@@ -350,9 +350,11 @@ function GlobalBackdrop({ show, onClose }) {
               >
                 Yeni Kategori Ekle
               </button>
-            </div>{' '}
+            </div>
             {/* end filter */}
           </div>
+
+          {/* Table */}
           <div className="table-responsive">
             <table className="table table-striped table-bordered align-middle">
               <thead>
@@ -433,6 +435,8 @@ function GlobalBackdrop({ show, onClose }) {
               </tbody>
             </table>
           </div>
+          {/* end Table */}
+
           {/* Pagination */}
           <div className="d-flex justify-content-between align-items-center mt-2">
             <div>
@@ -471,9 +475,181 @@ function GlobalBackdrop({ show, onClose }) {
                 </button>
               </div>
             </div>
-          </div>{' '}
+          </div>
           {/* end Pagination */}
-        </div>{' '}
+
+          {/* CREATE MODAL */}
+          {showCreate && (
+            <div
+              className="modal fade show d-block"
+              tabIndex="-1"
+              role="dialog"
+              tabIndex={-1}
+              aria-hidden="true"
+              style={{ zIndex: 1050 }}
+              onClick={closeCreate}
+            >
+              <div
+                className="modal-dialog modal-dialog-centered"
+                role="document"
+                onClick={(e) => e.stopPropagation()} // Modal içi tıklamayı engelle
+              >
+                <div className="modal-content">
+                  <form onSubmit={submitCreate}>
+                    {/* HEADER */}
+                    <div className="modal-header">
+                      <h5 className="modal-title">Yeni Kategori Ekle</h5>
+                      <button type="button" className="btn-close" onClick={closeCreate}></button>
+                    </div>
+
+                    {/* BODY */}
+                    <div className="modal-body">
+                      <div className="mb-3">
+                        <label htmlFor="categoryName" className="form-label">
+                          Kategori Adı
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          id="categoryName"
+                          name="categoryName"
+                          value={form.categoryName}
+                          onChange={onChange}
+                          className={`form-control ${formError.categoryName ? 'is-invalid' : ''}`}
+                        />
+
+                        {formError.categoryName && (
+                          <div className="invalid-feedback">{formError.categoryName}</div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* FOOTER */}
+                    <div className="modal-footer">
+                      <button type="button" className="btn btn-secondary" onClick={closeCreate}>
+                        İptal
+                      </button>
+                      <button type="submit" className="btn btn-primary">
+                        Kaydet
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* EDIT MODAL */}
+          {showEdit && (
+            <div
+              className="modal fade show d-block"
+              tabIndex="-1"
+              role="dialog"
+              tabIndex={-1}
+              aria-hidden="true"
+              style={{ zIndex: 1050 }}
+              onClick={closeEdit}
+            >
+              <div
+                className="modal-dialog modal-dialog-centered"
+                role="document"
+                onClick={(e) => e.stopPropagation()} // Modal içi tıklamayı engelle
+              >
+                <div className="modal-content">
+                  <form onSubmit={submitEdit}>
+                    {/* HEADER */}
+                    <div className="modal-header">
+                      <h5 className="modal-title">Kategori Düzenle</h5>
+                      <button type="button" className="btn-close" onClick={closeEdit}></button>
+                    </div>
+
+                    {/* BODY */}
+                    <div className="modal-body">
+                      <div className="mb-3">
+                        <label htmlFor="categoryName" className="form-label">
+                          Kategori Adı
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          id="categoryName"
+                          name="categoryName"
+                          value={form.categoryName}
+                          onChange={onChange}
+                          className={`form-control ${formError.categoryName ? 'is-invalid' : ''}`}
+                        />
+
+                        {formError.categoryName && (
+                          <div className="invalid-feedback">{formError.categoryName}</div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* FOOTER */}
+                    <div className="modal-footer">
+                      <button type="button" className="btn btn-secondary" onClick={closeEdit}>
+                        İptal
+                      </button>
+                      <button type="submit" className="btn btn-primary">
+                        Kaydet
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* VIEW MODAL */}
+          {showView && (
+            <div
+              className="modal fade show d-block"
+              tabIndex="-1"
+              role="dialog"
+              tabIndex={-1}
+              aria-hidden="true"
+              style={{ zIndex: 1050 }}
+              onClick={closeView}
+            >
+              <div
+                className="modal-dialog modal-dialog-centered"
+                role="document"
+                onClick={(e) => e.stopPropagation()} // Modal içi tıklamayı engelle
+              >
+                <div className="modal-content">
+                  {/* HEADER */}
+                  <div className="modal-header">
+                    <h5 className="modal-title">Kategori Detayı</h5>
+                    <button type="button" className="btn-close" onClick={closeView}></button>
+                  </div>
+
+                  {/* BODY */}
+                  <div className="modal-body">
+                    <div className="mb-2">
+                      <b>ID:</b> {selected?.categoryId ?? selected?.id}
+                    </div>
+
+                    <div className="mb-2">
+                      <b>Kategori Adı:</b> {selected?.categoryName ?? selected?.name}
+                    </div>
+
+                    <div className="mb-2">
+                      <b>Oluşturulma Tarihi:</b> {selected?.createdDate ?? selected?.date}
+                    </div>
+                  </div>
+                  {/* FOOTER */}
+                  <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" onClick={closeView}>
+                      İptal
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* DELETE MODAL */}
+        </div>
         {/* end container */}
       </React.Fragment>
     );
