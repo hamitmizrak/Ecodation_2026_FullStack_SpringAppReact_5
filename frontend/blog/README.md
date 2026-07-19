@@ -4,9 +4,9 @@
 
 ## _N-Tier Architecture_
 
-[![N|GitHub](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/GitHub_Invertocat_Logo.svg/200px-GitHub_Invertocat_Logo.svg.png)](https://github.com/hamitmizrak/Ecodation_FullStack_SpringReact_5)
+[![N|GitHub](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/GitHub_Invertocat_Logo.svg/200px-GitHub_Invertocat_Logo.svg.png)](https://github.com/hamitmizrak/Ecodation_FullStack_SpringReact_1)
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/hamitmizrak/Ecodation_2026_FullStack_SpringReact_5.git)
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/hamitmizrak/Ecodation_2025_FullStack_SpringReact_2.git)
 ![README PNG](./image/readme.png)
 
 ---
@@ -15,7 +15,7 @@
 
 Spring Boot And React JS
 
-- git clone https://github.com/hamitmizrak/Ecodation_2026_FullStack_SpringReact_5.git
+- git clone https://github.com/hamitmizrak/Ecodation_2026_FullStack_SpringReact4.git
 
 ---
 
@@ -45,6 +45,7 @@ Spring Boot And React JS
 - JAVA CORE
 - SPRING FRAMEWORK
 - SPRING BOOT
+
 ---
 
 ## Backend - Libraries && Programming
@@ -67,12 +68,13 @@ Spring Boot And React JS
 ---
 
 ## Google Chrome React Web for Developer
+
 1- Google React JS Developer : https://chromewebstore.google.com/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi
 
 ## 2- Google React Redux Developer : https://chromewebstore.google.com/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
 
-
 ## Fira Code
+
 1- Google Font: https://fonts.google.com/specimen/Fira+Code?subset=greek&preview.text=%C4%9F%C3%BC%C5%9F%C3%A7i&preview.text_type=custom
 
 2- Settings
@@ -83,18 +85,6 @@ Font Family: Fira Code
 "editor.fontLigatures": true,
 
 ---
-
-
-
-## Kurulu Olması Gerekenler
-
-- VS Code
-- Intellij Idea Ultimate
-- Git
-- Nodejs
-- Mysql, Postgresql
----
-
 
 ## REACTJS INSTALL
 
@@ -310,11 +300,11 @@ for project , plugins
 for project , Port
 
 | NAME       | PORT                                                  |
-| ---------- |-------------------------------------------------------|
-| React JS   | [React][http://localhost:3000]                        |
-| SPRING     | [Spring][http://localhost:4444]                       |
-| H2-CONSOLE | [H2][http://localhost:4444/h2-console]                |
-| SWAGGER    | [API DOCUMENT][http://localhost:4444/swagger-ui.html] |
+| ---------- | ----------------------------------------------------- |
+| React JS   | [React][http://localhost:3001]                        |
+| SPRING     | [Spring][http://localhost:9999]                       |
+| H2-CONSOLE | [H2][http://localhost:9999/h2-console]                |
+| SWAGGER    | [API DOCUMENT][http://localhost:9999/swagger-ui.html] |
 
 ---
 
@@ -347,12 +337,12 @@ docker-compose up -d
 docker-compose down
 Dockerfile_Basic build -t .
 
-docker container run -d -p 4444:4444 --name backend blog
+docker container run -d -p 9999:9999 --name backend blog
 docker run -d -p 8000:8080 --restart=always --cap-add=SYS_ADMIN --name=dillinger <youruser>/dillinger:${package.json.version}
 ```
 
 ```sh
-127.0.0.1:4444
+127.0.0.1:9999
 ```
 
 ## License

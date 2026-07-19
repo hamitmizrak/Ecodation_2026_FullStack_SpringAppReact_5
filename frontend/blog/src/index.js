@@ -4,6 +4,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
+// UI Framework ve animasyon kütüphaneleri (sıralama önemli olabilir)
+import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap ana CSS
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // Bootstrap JS (modal, tooltip vs.)
+import '@fortawesome/fontawesome-free/css/all.min.css'; // FontAwesome ikonlar
+import 'animate.css/animate.min.css'; // Animate.css animasyonları
+
+// Export index.css
+import './index.css'; // Projenizin kendi global css’i
+
 // Redux store'u global olarak sağlamak için Provider
 import { Provider } from 'react-redux';
 import { store } from './app/store/store'; // Redux store (dizine göre yolunu kontrol et!)
@@ -17,23 +26,13 @@ import Router from './routes/router';
 // Toast ana index.js eklenmesi gerekiyor
 import ReusabilityToast from './areas/admin/resuability/ReusabilityToast'; // Ana router component’iniz (Routes tanımlarınız burada)
 
-////////////////////////////////////////////////////////////////////////////////////
-// UI Framework ve animasyon kütüphaneleri (sıralama önemli olabilir)
-import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap ana CSS
-import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // Bootstrap JS (modal, tooltip vs.)
-import '@fortawesome/fontawesome-free/css/all.min.css'; // FontAwesome ikonlar
-import 'animate.css/animate.min.css'; // Animate.css animasyonları
-
-// Export index.css
-import './index.css'; // Projenizin kendi global css’i
-
 // Root element (public/index.html’de id="root" olan div’e render eder)
-// DOM: Document Object Model (HTML sayfasının yapısı)
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 // Uygulamanın ana render’ı
 root.render(
   <Provider store={store}>
+    {' '}
     {/* Redux context (store tüm alt komponentlere ulaşır) */}
     <BrowserRouter>
       <ReusabilityToast /> {/* Router context (url değişimini yönetir) */}
