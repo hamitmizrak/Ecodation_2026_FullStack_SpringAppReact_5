@@ -1,7 +1,8 @@
-// Blog.jsx — FINAL (octet-stream hatası çözülmüş sürüm)
+// Blog.jsx — FINAL (BLOGS.IMAGE NULL + multipart + liste görseli düzeltmesi)
 // Özellikler: Arama | Sıralama | Sayfalama | Modal (ESC/backdrop) | Dosya önizleme/silme | Toast bildirimleri
 // ÖNEMLİ: Multipart gönderimde header set ETME — tarayıcı boundary'i eklesin.
-//         @RequestPart("blog") için JSON'u Blob ile 'application/json' tipinde gönder.
+//         Backend @RequestPart("blog") String beklediği için JSON'u FormData'ya string olarak ekle.
+//         Görseller için backend'in farklı alan/yol formatları güvenli biçimde desteklenir.
 
 import React, { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
@@ -14,15 +15,132 @@ const extractData = (res) => {
     return d?.data ?? d?.result ?? d?.items ?? d?.content ?? d ?? [];
 };
 
+const assertApiSuccess = (res) => {
+    const payload = res?.data;
+    const statusText = String(payload?.status ?? payload?.resultStatus ?? '').toLowerCase();
+
+    const failed =
+        payload?.success === false ||
+        payload?.error === true ||
+        statusText === 'error' ||
+        statusText === 'failed' ||
+        statusText === 'failure';
+
+    if (failed) {
+        const message =
+            payload?.message ||
+            payload?.errorMessage ||
+            payload?.details ||
+            'Backend işlemi başarısız oldu.';
+        throw new Error(message);
+    }
+
+    return res;
+};
+
 const fmtDate = (iso) =>
     !iso ? '' : new Date(iso).toLocaleString('tr-TR', { timeZone: 'Europe/Istanbul' });
 
-const resolveImageUrl = (src) =>
-    !src
-        ? ''
-        : /^https?:\/\//i.test(src)
-            ? src
-            : `${IMAGE_BASE}${src.startsWith('/') ? src : '/' + src}`;
+const getBlogImageSource = (item) =>
+    item?.imageUrl ??
+    item?.imagePath ??
+    item?.image ??
+    item?.photoUrl ??
+    item?.photo ??
+    item?.fileUrl ??
+    item?.filePath ??
+    item?.fileName ??
+    item?.filename ??
+    '';
+
+const trimTrailingSlash = (value = '') => String(value).replace(/\/+$/, '');
+
+const DEFAULT_BACKEND_ORIGIN =
+    process.env.REACT_APP_BACKEND_ORIGIN ||
+    process.env.REACT_APP_API_ORIGIN ||
+    'http://localhost:5555';
+
+const getApiOrigin = () => {
+    try {
+        const fallbackOrigin = typeof window !== 'undefined' ? window.location.origin : undefined;
+        return new URL(API_BASE, fallbackOrigin).origin;
+    } catch {
+        return trimTrailingSlash(API_BASE);
+    }
+};
+
+const getImageCandidates = (source) => {
+    if (!source) return [];
+
+    const raw = String(source).trim().replace(/\\/g, '/');
+    if (!raw) return [];
+
+    if (/^(https?:|data:|blob:)/i.test(raw)) return [raw];
+
+    // Fiziksel dosya yolu dönmüşse yalnızca /upload/... bölümünü kullan.
+    const uploadIndex = raw.toLowerCase().lastIndexOf('/upload/');
+    const extractedPath = uploadIndex >= 0 ? raw.substring(uploadIndex) : raw;
+    const normalizedPath = extractedPath.replace(/^\.\//, '').replace(/^\/+/, '');
+    const pathWithSlash = `/${normalizedPath}`;
+    const fileNameOnly = !normalizedPath.includes('/');
+
+    const bases = [IMAGE_BASE, getApiOrigin(), API_BASE, DEFAULT_BACKEND_ORIGIN]
+        .filter(Boolean)
+        .map(trimTrailingSlash)
+        .filter((base, index, arr) => arr.indexOf(base) === index);
+
+    const candidates = [];
+    const add = (url) => {
+        if (url && !candidates.includes(url)) candidates.push(url);
+    };
+
+    bases.forEach((base) => add(`${base}${pathWithSlash}`));
+
+    bases.forEach((base) => {
+        if (fileNameOnly) {
+            add(`${base}/upload/blog/${normalizedPath}`);
+            add(`${base}/upload/${normalizedPath}`);
+        } else if (!normalizedPath.startsWith('upload/')) {
+            add(`${base}/upload/${normalizedPath}`);
+        }
+    });
+
+    add(pathWithSlash);
+    return candidates;
+};
+
+const appendCacheBuster = (url, version) => {
+    if (!url || !version || /^(data:|blob:)/i.test(url)) return url;
+    const separator = url.includes('?') ? '&' : '?';
+    return `${url}${separator}v=${encodeURIComponent(version)}`;
+};
+
+function BlogImage({ source, version, alt, style, className = '', emptyText = 'Görsel yok' }) {
+    const candidates = useMemo(
+        () => getImageCandidates(source).map((url) => appendCacheBuster(url, version)),
+        [source, version]
+    );
+    const [candidateIndex, setCandidateIndex] = useState(0);
+
+    useEffect(() => {
+        setCandidateIndex(0);
+    }, [source]);
+
+    if (!candidates.length || candidateIndex >= candidates.length) {
+        return <span className="text-muted small">{emptyText}</span>;
+    }
+
+    return (
+        <img
+            src={candidates[candidateIndex]}
+            alt={alt || 'Blog görseli'}
+            className={className}
+            style={style}
+            loading="lazy"
+            onError={() => setCandidateIndex((current) => current + 1)}
+        />
+    );
+}
 
 function GlobalBackdrop({ show, onClose }) {
     if (!show) return null;
@@ -191,6 +309,19 @@ export default function Blog() {
     const onFileChange = (e) => {
         const f = e.target.files?.[0];
         if (!f) return clearFile();
+
+        if (!f.type?.startsWith('image/')) {
+            showError?.('Lütfen geçerli bir görsel dosyası seçiniz.');
+            e.target.value = '';
+            return;
+        }
+
+        if (f.size > 10 * 1024 * 1024) {
+            showError?.('Görsel dosyası en fazla 10 MB olabilir.');
+            e.target.value = '';
+            return;
+        }
+
         setFile(f);
         if (filePreview) URL.revokeObjectURL(filePreview);
         setFilePreview(URL.createObjectURL(f));
@@ -222,7 +353,7 @@ export default function Blog() {
             header: row?.header || '',
             title: row?.title || '',
             content: row?.content || '',
-            image: row?.image || '',
+            image: getBlogImageSource(row) || '',
             categoryId: row?.blogCategoryDto?.categoryId ?? row?.blogCategoryDto?.id ?? '',
         });
         setShowEdit(true);
@@ -275,16 +406,18 @@ export default function Blog() {
         header: form.header.trim(),
         title: form.title.trim(),
         content: form.content.trim(),
-        image: form.image?.trim() || 'resim.png',
+        // Dosya seçildiyse gerçek public yolu backend üretir.
+        // Dosya adı IMAGE alanına yazılmaz; aksi halde /upload/blog yolu oluşmadan yanlış değer kaydedilir.
+        image: form.image?.trim() || null,
         blogCategoryDto: { categoryId: Number(form.categoryId) },
     });
 
-    // blog parçasını application/json olarak ekle (kritik!)
+    // Backend @RequestPart("blog") String beklediği için JSON'u düz string gönder.
+    // Content-Type header'ını elle ekleme; boundary bilgisini tarayıcı oluşturur.
     const buildMultipart = () => {
         const fd = new FormData();
-        const blob = new Blob([JSON.stringify(jsonBody())], { type: 'application/json' });
-        fd.append('blog', blob);
-        if (file) fd.append('file', file); // tip otomatik belirlenir (image/*)
+        fd.append('blog', JSON.stringify(jsonBody()));
+        if (file) fd.append('file', file, file.name);
         return fd;
     };
 
@@ -298,16 +431,24 @@ export default function Blog() {
         try {
             if (file) {
                 // MULTIPART: header set ETME — tarayıcı boundary ekler
-                await axios.post(`${API_BASE}${ENDPOINTS.BLOG.CREATE}`, buildMultipart());
+                assertApiSuccess(
+                    await axios.post(`${API_BASE}${ENDPOINTS.BLOG.CREATE}`, buildMultipart())
+                );
             } else {
                 // JSON
-                await axios.post(`${API_BASE}${ENDPOINTS.BLOG.CREATE}`, jsonBody());
+                assertApiSuccess(
+                    await axios.post(`${API_BASE}${ENDPOINTS.BLOG.CREATE}`, jsonBody())
+                );
             }
             showSuccess?.('Blog eklendi.') ?? console.log('Blog eklendi.');
             closeCreate();
-            fetchBlogs();
+            await fetchBlogs();
         } catch (ex) {
-            const msg = ex?.response?.data?.message || ex?.message || 'Blog eklenemedi.';
+            const msg =
+                ex?.response?.data?.message ||
+                ex?.response?.data?.errorMessage ||
+                ex?.message ||
+                'Blog eklenemedi.';
             showError?.(msg) ?? console.error(ex);
             setFormError(ex?.response?.data?.validationErrors || {});
         }
@@ -325,17 +466,25 @@ export default function Blog() {
 
             if (file) {
                 // MULTIPART: header set ETME — tarayıcı boundary ekler
-                await axios.put(`${API_BASE}${ENDPOINTS.BLOG.UPDATE(id)}`, buildMultipart());
+                assertApiSuccess(
+                    await axios.put(`${API_BASE}${ENDPOINTS.BLOG.UPDATE(id)}`, buildMultipart())
+                );
             } else {
                 // JSON
-                await axios.put(`${API_BASE}${ENDPOINTS.BLOG.UPDATE(id)}`, jsonBody());
+                assertApiSuccess(
+                    await axios.put(`${API_BASE}${ENDPOINTS.BLOG.UPDATE(id)}`, jsonBody())
+                );
             }
 
             showSuccess?.('Blog güncellendi.') ?? console.log('Blog güncellendi.');
             closeEdit();
-            fetchBlogs();
+            await fetchBlogs();
         } catch (ex) {
-            const msg = ex?.response?.data?.message || ex?.message || 'Blog güncellenemedi.';
+            const msg =
+                ex?.response?.data?.message ||
+                ex?.response?.data?.errorMessage ||
+                ex?.message ||
+                'Blog güncellenemedi.';
             showError?.(msg) ?? console.error(ex);
             setFormError(ex?.response?.data?.validationErrors || {});
         }
@@ -345,7 +494,9 @@ export default function Blog() {
         try {
             const id = selected?.blogId ?? selected?.id;
             if (id == null) throw new Error('Blog ID yok.');
-            await axios.delete(`${API_BASE}${ENDPOINTS.BLOG.DELETE(id)}`);
+            assertApiSuccess(
+                await axios.delete(`${API_BASE}${ENDPOINTS.BLOG.DELETE(id)}`)
+            );
             showSuccess?.('Blog silindi.') ?? console.log('Blog silindi.');
             closeDelete();
             fetchBlogs();
@@ -424,14 +575,14 @@ export default function Blog() {
                         <tbody>
                         {loading ? (
                             <tr>
-                                <td colSpan={7} className="text-center">
+                                <td colSpan={8} className="text-center">
                                     <span className="spinner-border spinner-border-sm me-2" />
                                     Yükleniyor...
                                 </td>
                             </tr>
                         ) : paged.length === 0 ? (
                             <tr>
-                                <td colSpan={7} className="text-center text-muted">
+                                <td colSpan={8} className="text-center text-muted">
                                     Kayıt yok.
                                 </td>
                             </tr>
@@ -450,21 +601,19 @@ export default function Blog() {
                                     </td>
                                     <td>{row.blogCategoryDto?.categoryName ?? '-'}</td>
                                     <td>
-                                        {row.image ? (
-                                            <img
-                                                src={resolveImageUrl(row.image)}
-                                                alt={row.title || 'image'}
-                                                style={{
-                                                    maxWidth: 120,
-                                                    maxHeight: 80,
-                                                    objectFit: 'contain',
-                                                    borderRadius: 6,
-                                                    boxShadow: '0 1px 8px rgba(0,0,0,0.06)',
-                                                }}
-                                            />
-                                        ) : (
-                                            <span className="text-muted small">—</span>
-                                        )}
+                                        <BlogImage
+                                            source={getBlogImageSource(row)}
+                                            version={row.systemUpdatedDate || row.systemCreatedDate || row.blogId || row.id}
+                                            alt={row.title || 'Blog görseli'}
+                                            emptyText="—"
+                                            style={{
+                                                maxWidth: 120,
+                                                maxHeight: 80,
+                                                objectFit: 'contain',
+                                                borderRadius: 6,
+                                                boxShadow: '0 1px 8px rgba(0,0,0,0.06)',
+                                            }}
+                                        />
                                     </td>
                                     <td>{fmtDate(row.systemCreatedDate)}</td>
                                     <td>
@@ -842,20 +991,18 @@ export default function Blog() {
                                     <div className="mb-2">
                                         <b>Görsel:</b>
                                         <div className="mt-1">
-                                            {selected.image ? (
-                                                <img
-                                                    src={resolveImageUrl(selected.image)}
-                                                    alt={selected.title || 'image'}
-                                                    style={{
-                                                        maxWidth: 200,
-                                                        maxHeight: 140,
-                                                        objectFit: 'contain',
-                                                        borderRadius: 8,
-                                                    }}
-                                                />
-                                            ) : (
-                                                <span className="text-muted small">—</span>
-                                            )}
+                                            <BlogImage
+                                                source={getBlogImageSource(selected)}
+                                                version={selected.systemUpdatedDate || selected.systemCreatedDate || selected.blogId || selected.id}
+                                                alt={selected.title || 'Blog görseli'}
+                                                emptyText="—"
+                                                style={{
+                                                    maxWidth: 200,
+                                                    maxHeight: 140,
+                                                    objectFit: 'contain',
+                                                    borderRadius: 8,
+                                                }}
+                                            />
                                         </div>
                                     </div>
                                     <div className="mb-2">

@@ -1,6 +1,5 @@
 package com.hamitmizrak.business.dto;
 
-
 import com.hamitmizrak.audit.AuditingAwareBaseDto;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -18,10 +17,9 @@ import java.io.Serializable;
 @Builder
 @Log4j2
 
-//  BlogDto(N) -BlogCategory(1)
-public class BlogDto  extends AuditingAwareBaseDto implements Serializable {
+// BlogDto(N) - BlogCategory(1)
+public class BlogDto extends AuditingAwareBaseDto implements Serializable {
 
-    // Serial
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -41,9 +39,14 @@ public class BlogDto  extends AuditingAwareBaseDto implements Serializable {
     @NotEmpty(message = "{blog.content.least.validation.constraints.NotNull.message}")
     private String content;
 
-    // Picture
-    @Builder.Default
-    private String image="resim.png";
+    /**
+     * Veritabanında saklanan public görsel yolu.
+     * Örnek: /upload/blog/uuid_dosya.png
+     *
+     * "resim.png" gibi gerçekte var olmayan varsayılan değer kullanılmaz.
+     * Görsel yoksa null kalabilir.
+     */
+    private String image;
 
     // Relation
     private BlogCategoryDto blogCategoryDto;
