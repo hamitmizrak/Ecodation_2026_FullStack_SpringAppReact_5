@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 
+import java.util.UUID;
+
 // LOMBOK
 // LOMBOK
 @RequiredArgsConstructor
@@ -45,12 +47,12 @@ public class _2_Blog_BlogCategory {
 
             // Tekil Kategory
             BlogCategoryEntity computerCategory=new BlogCategoryEntity();
-            computerCategory.setCategoryName("Public Server");
+            computerCategory.setCategoryName("Public Server"+ UUID.randomUUID().toString());
             iBlogCategoryRepository.save(computerCategory);
 
             // Tekil Kategory
             BlogCategoryEntity tabletCategory=new BlogCategoryEntity();
-            tabletCategory.setCategoryName("Tablet");
+            tabletCategory.setCategoryName("Tablet"+UUID.randomUUID().toString());
             iBlogCategoryRepository.save(tabletCategory);
 
             // Blog-1

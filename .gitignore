@@ -3,6 +3,7 @@ frontend/node_modules
 log
 database_memory_persist
 _3_jar_dockerize
+dockerize
 
 
 HELP.md
