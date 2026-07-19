@@ -45,7 +45,7 @@ public class _2_Blog_BlogCategory {
 
             // Tekil Kategory
             BlogCategoryEntity computerCategory=new BlogCategoryEntity();
-            computerCategory.setCategoryName("Bilgisayar");
+            computerCategory.setCategoryName("Public Server");
             iBlogCategoryRepository.save(computerCategory);
 
             // Tekil Kategory
