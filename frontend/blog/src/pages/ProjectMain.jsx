@@ -13,7 +13,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 
 // Config
-import { API_BASE, ENDPOINTS, IMAGE_BASE } from '../config/api';
+import { API_BASE, ENDPOINTS, IMAGE_BASE } from '../core/api';
 
 // Toast (projende farklı yolda olabilir; mevcut yapına göre güncelle)
 import { showError, showSuccess } from '../areas/admin/resuability/toastHelper';

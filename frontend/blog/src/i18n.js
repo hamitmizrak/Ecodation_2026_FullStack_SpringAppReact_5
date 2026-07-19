@@ -2,7 +2,18 @@
 import i18n from 'i18next';
 
 // initReactI18next
-import {initReactI18next} from 'react-i18next';
+import { initReactI18next } from 'react-i18next';
+import { setApiLanguage } from './core/api';
+
+
+const getInitialLanguage = () => {
+  if (typeof window === 'undefined') return 'tr';
+  const stored = localStorage.getItem('language');
+  if (stored) return stored;
+  return String(navigator.language || 'tr').toLowerCase().startsWith('en') ? 'en' : 'tr';
+};
+
+const initialLanguage = setApiLanguage(getInitialLanguage());
 
 // i18n.use()
 i18n.use(initReactI18next).init({
@@ -78,6 +89,7 @@ i18n.use(initReactI18next).init({
       },
     },
   },
+  lng: initialLanguage,
   fallbackLng: 'tr', //default olarak Türkçe (tr)
   ns: ['translations'], //kelimeleri nerede alsın
   defaultNS: 'translations',
@@ -87,6 +99,12 @@ i18n.use(initReactI18next).init({
     wait: true,
   },
 });
+
+export async function changeLanguage(language) {
+  const normalized = setApiLanguage(language);
+  await i18n.changeLanguage(normalized);
+  return normalized;
+}
 
 // EXPORT
 export default i18n;

@@ -1,43 +1,131 @@
-// src/Router.jsx
+// src/routes/router.jsx
+// Eski ProtectedRoute, AdminRoute, WriterRoute, DefaultUser, hata ve basit sayfa
+// dosyaları bu dosyada birleştirilmiştir.
 
-// REACT
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-// I18N çeviri desteği (withTranslation HOC, i18n için)
-import { withTranslation } from 'react-i18next';
-
-// ROUTER: React Router v6+
-import { Navigate, Route, Routes, Outlet } from 'react-router-dom';
-
-// PUBLIC alanlarda gösterilecek Header, Footer, Main
 import ProjectHeader from '../pages/ProjectHeader';
 import ProjectFooter from '../pages/ProjectFooter';
 import ProjectMain from '../pages/ProjectMain';
 
-// AUTH ve hata sayfası (yetkisiz erişim)
-import Forbidden403 from '../pages/Forbidden403';
-
-// Route guard bileşenleri
-import ProtectedRoute from './ProtectedRoute';
-import WriterRoute from './WriterRoute';
-import AdminRoute from './AdminRoute';
-
-// Admin ve Writer sayfaları/layout'ları
-import AdminLayout from '../areas/admin/AdminLayout';
-import AdminHome from '../areas/admin/AdminHome';
-import BlogApi from '../areas/writer/BlogApi'; // Writer için sayfa
+import { AdminLayout, AdminHome } from '../areas/admin/AdminShell';
 import BlogCategory from '../areas/admin/BlogCategory';
-
-// About
 import About from '../areas/admin/About';
-import Blog from '../areas/admin/Blog'; // Admin için sayfa
+import Blog from '../areas/admin/Blog';
+import BlogApi from '../areas/writer/BlogApi';
 
-/**
- * PublicLayout
- * -------------------------------------------------
- * Tüm "public" sayfaların layout'u (üstte header, altta footer)
- * Buradaki <Outlet /> → alt route'lara yol açar (ör: Anasayfa, Hakkında vs.)
- */
+import {
+  initFromStorage,
+  logout,
+  selectAuth,
+} from '../features/auth/authSlice';
+import { extractApiData, fetchMe, resolveImageUrl } from '../core/api';
+
+const normalizeRoles = (roles = []) =>
+  roles
+    .map((role) => String(role).toUpperCase().trim())
+    .map((role) => role.replace(/^ROLE_/, ''));
+
+export function ProtectedRoute({ roles = [] }) {
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const { isAuthenticated, roles: currentRoles, loading, token } = useSelector(selectAuth);
+
+  useEffect(() => {
+    dispatch(initFromStorage());
+  }, [dispatch]);
+
+  const storedToken = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+
+  if (loading && (token || storedToken)) {
+    return <div className="container py-5">Yükleniyor...</div>;
+  }
+
+  if (!isAuthenticated && !storedToken) {
+    return <Navigate to="/" replace state={{ from: location }} />;
+  }
+
+  if (roles.length) {
+    const have = normalizeRoles(currentRoles);
+    const need = normalizeRoles(roles);
+    if (!have.some((role) => need.includes(role))) {
+      return <Navigate to="/403" replace />;
+    }
+  }
+
+  return <Outlet />;
+}
+
+export function AdminRoute() {
+  return <ProtectedRoute roles={['ADMIN']} />;
+}
+
+export function WriterRoute() {
+  return <ProtectedRoute roles={['WRITER', 'ADMIN']} />;
+}
+
+export function DefaultUserRoute() {
+  return <ProtectedRoute roles={['USER', 'ADMIN']} />;
+}
+
+export function Forbidden403() {
+  return (
+    <div className="container py-5">
+      <h1 className="display-5">403 - Yetkisiz</h1>
+      <p>Bu sayfaya erişim yetkiniz bulunmuyor.</p>
+    </div>
+  );
+}
+
+export function NotFound404() {
+  return (
+    <div className="container py-5">
+      <h1 className="display-5">404 - Sayfa Bulunamadı</h1>
+      <p>Aradığınız sayfa bulunamadı.</p>
+    </div>
+  );
+}
+
+export function HomePage() {
+  return <ProjectMain />;
+}
+
+// Önceden ayrı olan Dashboard özelliği, ihtiyaç halinde named export olarak korunmuştur.
+export function Dashboard() {
+  const dispatch = useDispatch();
+  const auth = useSelector(selectAuth);
+  const [me, setMe] = useState(auth.user || null);
+
+  useEffect(() => {
+    let active = true;
+    fetchMe()
+      .then((response) => {
+        if (active) setMe(extractApiData(response));
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const imageUrl = resolveImageUrl(me?.imageUrl || me?.image);
+
+  return (
+    <div className="container" style={{ maxWidth: 720, margin: '32px auto' }}>
+      <h3>Dashboard</h3>
+      <p>Hoş geldin{me?.registerName ? `, ${me.registerName}` : ''} 👋</p>
+      {imageUrl && <img src={imageUrl} alt="avatar" style={{ maxWidth: 160 }} />}
+      <div className="mt-3">
+        <button className="btn btn-outline-secondary" onClick={() => dispatch(logout())}>
+          Çıkış Yap
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function PublicLayout() {
   return (
     <>
@@ -50,70 +138,36 @@ function PublicLayout() {
   );
 }
 
-/*
-var olan dosyala özellikleri korunmalı ve istediğim işler
-
-Sertifika Şablon Yönetimi
-iş-1) Sertifika PDF çıktısı yani Sertifika oluşturulduğunda "üğşçöÜĞŞÇÖ" gibi Türkçe karakter sounları var bunların yerine # geliyor bunları düzelt PDF Türkçe karakter sounu olmasın
-
-
-iş-2) Şablon Düzenle  "Sertifika Şablon Yönetimi" Template Lifecycle butonu ile oluşturduğumda template silme butonuna bastığımda silmiyor şu hatayı veriyor  "org.hibernate.ObjectDeletedException: deleted instance passed to merge: [com.hamitmizrak.business.dto.education.certificate.EducationCertificateTemplateEntity_CMS#<null>]"
-
-iş-3) Şablon Düzenle  AIHEXA Default Certificate Düzenle butonuna tıkladığımda  şunları düzgün yapmasını istiyorum
-Gerçek Drag-and-Drop Designer değişliklik yaptığımda aynı database api ile değişiklik yapılmasını istiyorum ve bunların sonuçlarını hem "Önizleme Al Çıktısı • Designer ile Aynı" hemde "Ön İZleme Al" butona tıkladığımda Html Önzilemesinde ayını değişikliği görebilmeliyim ve güncelle dediğimde bu değişiklik olması gerekiyor.
-
-    iş-4) Şablon Düzenle içinde gelen "Önizleme Al Çıktısı • Designer ile Aynı" gelen gelmemesi gerekiyor*/
-/**
- * Router
- * -------------------------------------------------
- * Ana router bileşeni. Tüm rotalar burada tanımlanır.
- * - Public ve admin route'larını ayrı layout'larla ayırırız.
- * - Rol ve login guard'ları için ProtectedRoute/WriterRoute/AdminRoute kullanılır.
- */
-function Router() {
+export default function Router() {
   return (
     <Routes>
-      {/* ========== PUBLIC Layout ========== */}
       <Route element={<PublicLayout />}>
-        {/* Anasayfa */}
         <Route path="/" element={<ProjectMain />} />
         <Route path="/index" element={<ProjectMain />} />
         <Route path="/403" element={<Forbidden403 />} />
+        <Route path="/404" element={<NotFound404 />} />
 
-        {/* (İsteğe bağlı) login gerektiren, ama header/footer olan alanlar */}
         <Route element={<ProtectedRoute />}>
-          {/* örn: <Route path="/dashboard" element={<Dashboard />} /> */}
+          {/* Mevcut projede yorumda olan dashboard özelliği burada korunur. */}
+          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
         </Route>
 
-        {/* WRITER route (header/footer ile) */}
         <Route element={<WriterRoute />}>
           <Route path="/writer/blog-api" element={<BlogApi />} />
         </Route>
 
-        {/* Bilinmeyen adres → anasayfa */}
+        {/* Eski davranış korunur: bilinmeyen adres anasayfaya döner. */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
 
-      {/* ========== ADMIN Layout ========== */}
-      {/* Admin alanında kendine ait layout kullanılır. Header/footer YOK */}
       <Route element={<AdminRoute />}>
         <Route path="/admin" element={<AdminLayout />}>
-          {/* Ana admin home */}
           <Route index element={<AdminHome />} />
-
-          {/* Blog kategorileri (sadece admin) */}
           <Route path="blog-category" element={<BlogCategory />} />
           <Route path="blog" element={<Blog />} />
-
-          {/* ...Başka admin-only route'lar buraya eklenebilir */}
-
-          {/*About*/}
           <Route path="about" element={<About />} />
         </Route>
       </Route>
     </Routes>
   );
 }
-
-// I18N ile sarmalanmış export (tüm sayfa içeriğinde çeviri desteği olur)
-export default withTranslation()(Router);

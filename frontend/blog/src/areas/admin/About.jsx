@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ResuabilityToast from "./resuability/ReusabilityToast";          // yolu projene göre düzenle
 import { showSuccess, showError } from "./resuability/toastHelper";     // yolu projene göre düzenle
-import { API_BASE, ENDPOINTS, IMAGE_BASE } from "../../config/api";
+import { API_BASE, ENDPOINTS, IMAGE_BASE } from "../../core/api";
 
 // Görsel yolu çözücü
 // Yardımcılar

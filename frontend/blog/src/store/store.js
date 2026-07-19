@@ -14,7 +14,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 // Auth slice (giriş/kayıt/yetki) için reducer
-import authReducer from '../../features/auth/authSlice'; // DİKKAT: yolunu doğru ayarla! (kökten başlıyorsa '../features/auth/authSlice')
+import authReducer from '../features/auth/authSlice'; // DİKKAT: yolunu doğru ayarla! (kökten başlıyorsa '../features/auth/authSlice')
 
 // Store oluşturuluyor
 export const store = configureStore({
@@ -26,4 +26,4 @@ export const store = configureStore({
 });
 
 // NOT: Eğer başka dosyada default export isterseniz aşağıdaki satırı açın:
-// export default store;
+export default store;

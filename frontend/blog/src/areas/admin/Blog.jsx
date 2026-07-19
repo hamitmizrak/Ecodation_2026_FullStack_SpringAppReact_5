@@ -6,7 +6,7 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
-import { API_BASE, ENDPOINTS, IMAGE_BASE } from '../../config/api';
+import { API_BASE, ENDPOINTS, IMAGE_BASE } from '../../core/api';
 import { showSuccess, showError } from './resuability/toastHelper';
 
 // ---------- Helpers ----------

@@ -6,7 +6,7 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
-import { API_BASE, ENDPOINTS } from '../../config/api';
+import { API_BASE, ENDPOINTS } from '../../core/api';
 import { showSuccess, showError } from './resuability/toastHelper'; // varsa kullan; yoksa console.log ile değiştir
 
 // -------- Helpers --------

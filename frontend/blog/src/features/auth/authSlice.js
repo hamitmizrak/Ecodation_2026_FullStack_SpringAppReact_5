@@ -2,10 +2,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { jwtDecode } from 'jwt-decode';
 
-import { axiosClient, setAccessToken, clearAccessToken } from '../../lib/axiosClient';
-import { ENDPOINTS } from '../../config/api';
-import { fetchMe } from './authService';
-import { createRegisterWithImage } from '../register/registerService';
+import {
+  axiosClient,
+  setAccessToken,
+  clearAccessToken,
+  ENDPOINTS,
+  fetchMe,
+  createRegisterWithImage,
+} from '../../core/api';
 
 /* =========================== Helpers =========================== */
 
@@ -285,9 +289,9 @@ const authSlice = createSlice({
       state.error = null;
       state.fieldErrors = null;
 
-      // Logout sonrasında token silmek istemezsek bunu kaldırabilirsiniz
-      //localStorage.removeItem('token');
-      //localStorage.removeItem('roles');
+      localStorage.removeItem('token');
+      localStorage.removeItem('roles');
+      localStorage.removeItem('user');
       clearAccessToken();
     },
     resetErrors(state) {

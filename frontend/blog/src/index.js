@@ -15,7 +15,7 @@ import './index.css'; // Projenizin kendi global css’i
 
 // Redux store'u global olarak sağlamak için Provider
 import { Provider } from 'react-redux';
-import { store } from './app/store/store'; // Redux store (dizine göre yolunu kontrol et!)
+import { store } from './store/store'; // Redux store (dizine göre yolunu kontrol et!)
 
 // React Router (SPA için sayfa yönlendirme)
 // BrowserRouter: HTML5 history API kullanır (modern tarayıcılar için)

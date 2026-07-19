@@ -4,6 +4,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Modal } from 'bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { changeLanguage } from '../i18n';
 
 // pictures
 import TrFlag from '../shared/assets/images/flag/tr.png';
@@ -170,7 +171,7 @@ function ProjectHeader() {
       cleanupBootstrapModalArtifacts();
       navigate('/admin', { replace: true });
     } catch (e2) {
-      const be = e2?.response?.data;
+      const be = e2?.response?.data ?? e2;
       const { general, fields } = normalizeBackendError(be);
       const mapped = Object.fromEntries(
         Object.entries(fields).map(([k, v]) => [mapLoginFieldName(k), v])
@@ -304,7 +305,7 @@ function ProjectHeader() {
       setUploadPct(0);
       dispatch(resetErrors());
     } catch (e2) {
-      const be = e2?.response?.data;
+      const be = e2?.response?.data ?? e2;
       const { general, fields } = normalizeBackendError(be);
       const mapped = Object.fromEntries(
         Object.entries(fields).map(([k, v]) => [mapRegisterFieldName(k), v])
@@ -360,6 +361,11 @@ function ProjectHeader() {
       general: error || s.general,
     }));
   }, [error, fieldErrors]);
+
+  const handleLanguageChange = (event, language) => {
+    event.preventDefault();
+    changeLanguage(language);
+  };
 
   /* -------------------- UI (koşullu linkler) -------------------- */
   const authLinks = (
@@ -430,14 +436,24 @@ function ProjectHeader() {
               <ul className="nav">
                 {isAuthenticated ? authLinks : guestLinks}
                 <li className="nav-item">
-                  <a href="#" className="nav-link text-white small">
+                  <a
+                    href="#"
+                    className="nav-link text-white small"
+                    onClick={(event) => handleLanguageChange(event, 'tr')}
+                    aria-label="Türkçe"
+                  >
                     <span>
                       <img className="flag" src={TrFlag} alt="TR" />
                     </span>
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a href="#" className="nav-link text-white small">
+                  <a
+                    href="#"
+                    className="nav-link text-white small"
+                    onClick={(event) => handleLanguageChange(event, 'en')}
+                    aria-label="English"
+                  >
                     <span>
                       <img className="flag" src={EnFlag} alt="EN" />
                     </span>
