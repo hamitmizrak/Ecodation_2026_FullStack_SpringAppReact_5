@@ -30,7 +30,7 @@ import BlogCategory from '../areas/admin/BlogCategory';
 
 // About
 import About from '../areas/admin/About';
-import Blog from "../areas/admin/Blog"; // Admin için sayfa
+import Blog from '../areas/admin/Blog'; // Admin için sayfa
 
 /**
  * PublicLayout
@@ -50,6 +50,19 @@ function PublicLayout() {
   );
 }
 
+/*
+var olan dosyala özellikleri korunmalı ve istediğim işler
+
+Sertifika Şablon Yönetimi
+iş-1) Sertifika PDF çıktısı yani Sertifika oluşturulduğunda "üğşçöÜĞŞÇÖ" gibi Türkçe karakter sounları var bunların yerine # geliyor bunları düzelt PDF Türkçe karakter sounu olmasın
+
+
+iş-2) Şablon Düzenle  "Sertifika Şablon Yönetimi" Template Lifecycle butonu ile oluşturduğumda template silme butonuna bastığımda silmiyor şu hatayı veriyor  "org.hibernate.ObjectDeletedException: deleted instance passed to merge: [com.hamitmizrak.business.dto.education.certificate.EducationCertificateTemplateEntity_CMS#<null>]"
+
+iş-3) Şablon Düzenle  AIHEXA Default Certificate Düzenle butonuna tıkladığımda  şunları düzgün yapmasını istiyorum
+Gerçek Drag-and-Drop Designer değişliklik yaptığımda aynı database api ile değişiklik yapılmasını istiyorum ve bunların sonuçlarını hem "Önizleme Al Çıktısı • Designer ile Aynı" hemde "Ön İZleme Al" butona tıkladığımda Html Önzilemesinde ayını değişikliği görebilmeliyim ve güncelle dediğimde bu değişiklik olması gerekiyor.
+
+    iş-4) Şablon Düzenle içinde gelen "Önizleme Al Çıktısı • Designer ile Aynı" gelen gelmemesi gerekiyor*/
 /**
  * Router
  * -------------------------------------------------
